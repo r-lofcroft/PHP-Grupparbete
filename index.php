@@ -9,9 +9,21 @@
 </head>
 
 <body>
-
   <?php
-  echo 'Hello World'
+  $host = 'localhost';
+  $dbname = 'grupparbete';
+  $user = 'root';
+  $password = '123';
+
+  $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname;
+
+  $pdo = new PDO($dsn, $user, $password);
+
+  $stmt = $pdo->query('SELECT * FROM posts');
+
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    echo $row['title'] . '<br>';
+  }
   ?>
 </body>
 
