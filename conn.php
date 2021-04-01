@@ -1,0 +1,5 @@
+<?php
+$conn = new PDO('mysql:host=localhost;dbname=zoo', 'testuser', '');
+if (!$conn) {
+  die("Error: Failed to coonect to database!");
+}
