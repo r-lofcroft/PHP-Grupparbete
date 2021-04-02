@@ -17,56 +17,45 @@
 
   if (isset($_POST['search'])) {
   ?>
-    <table class="table table-bordered">
-      <thead class="alert-info">
+    <table>
+      <tr>
+        <th>Results</th>
+      </tr>
+      <?php
+      $keyword = $_POST['keyword'];
+      $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
+      $query->execute();
+      while ($row = $query->fetch()) {
+      ?>
         <tr>
-          <th>Name</th>
+          <td><?php echo $row['id'] ?></td>
+          <td><?php echo $row['name'] ?></td>
+          <td><?php echo $row['category'] ?></td>
+          <td><?php echo $row['birthday'] ?></td><br>
+
         </tr>
-      </thead>
-      <tbody>
-        <?php
-        $keyword = $_POST['keyword'];
-        $query = $conn->prepare("SELECT * FROM `animals` WHERE `name` LIKE '%$keyword%'");
-        $query->execute();
-        while ($row = $query->fetch()) {
-        ?>
-          <tr>
-            <td><?php echo $row['name'] ?></td>
-
-          </tr>
-
-
-        <?php
-        }
-        ?>
-      </tbody>
+      <?php
+      }
+      ?>
     </table>
   <?php
   } else {
   ?>
-    <table class="table table-bordered">
-      <thead class="alert-info">
+    <table>
+      <tr>
+        <th>Name</th>
+      </tr>
+      <?php
+      $query = $conn->prepare("SELECT * FROM `animals`");
+      $query->execute();
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+      ?>
         <tr>
-          <th>Name</th>
-
+          <td><?php echo $row['name'] ?></td>
         </tr>
-      </thead>
-      <tbody>
-        <?php
-        $query = $conn->prepare("SELECT * FROM `animals`");
-        $query->execute();
-        while ($row = $query->fetch()) {
-        ?>
-          <tr>
-            <td><?php echo $row['name'] ?></td>
-
-          </tr>
-
-
-        <?php
-        }
-        ?>
-      </tbody>
+      <?php
+      }
+      ?>
     </table>
   <?php
   }
