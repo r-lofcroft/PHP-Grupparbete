@@ -17,10 +17,12 @@
 
   if (isset($_POST['search'])) {
   ?>
-    <table>
-      <tr>
-        <th>Results</th>
-      </tr>
+    <h3>Results</h3>
+    <table style="border: 1px solid black;">
+      <th>ID</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Birthday</th>
       <?php
       $keyword = $_POST['keyword'];
       $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
@@ -32,7 +34,6 @@
           <td><?php echo $row['name'] ?></td>
           <td><?php echo $row['category'] ?></td>
           <td><?php echo $row['birthday'] ?></td><br>
-
         </tr>
       <?php
       }
@@ -48,7 +49,7 @@
       <?php
       $query = $conn->prepare("SELECT * FROM `animals`");
       $query->execute();
-      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+      while ($row = $query->fetch()) {
       ?>
         <tr>
           <td><?php echo $row['name'] ?></td>

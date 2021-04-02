@@ -8,7 +8,7 @@
 
 <body>
   <div>
-    <hr style="border-top:1px dotted #ccc;" />
+    <hr style="border-top:1px solid #ccc;" />
     <div>
       <form method="POST" action="search.php">
         <div class="form-inline">
@@ -23,23 +23,26 @@
     </div>
     </form>
     <div>
-      <?php
-      require 'conn.php';
-      $query = $conn->prepare("SELECT * FROM `animals`");
-      $query->execute();
-      while ($row = $query->fetch()) {
-      ?>
-        <tr>
-          <br>
-          <td><?php echo $row['id'] ?></td>
-          <td><?php echo $row['name'] ?></td>
-          <td><?php echo $row['category'] ?></td>
-          <td><?php echo $row['birthday'] ?></td><br>
-        </tr>
-      <?php
-      }
-      ?>
-      </tbody>
+      <table style="border: 1px solid black;">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Birthday</th>
+        <?php
+        require 'conn.php';
+        $query = $conn->prepare("SELECT * FROM `animals`");
+        $query->execute();
+        while ($row = $query->fetch()) {
+        ?>
+          <tr>
+            <td><?php echo $row['id'] ?></td>
+            <td><?php echo $row['name'] ?></td>
+            <td><?php echo $row['category'] ?></td>
+            <td><?php echo $row['birthday'] ?></td>
+          </tr>
+        <?php
+        }
+        ?>
       </table>
     </div>
   </div>
