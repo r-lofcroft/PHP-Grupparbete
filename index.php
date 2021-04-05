@@ -8,34 +8,33 @@
 </head>
 
 <body>
-  <div>
     <hr style="border-top:1px solid #ccc;" />
     <div>
 
-    <div class="container-lg bg-info text-white border rounded">
-
+     <div class="container p-3 border border-primary rounded">
+       <h2 class="m-2">Search</h2>
       <form method="POST" action="search.php">
-        <div class="form-inline">
-          <input class="form-control" type="text" name="keyword" placeholder="Search here..." required="required" />
-          <button class="btn btn-primary" name="search">Search</button>
-        </div>
+   
+          <input class="form-control m-2 w-100" type="text" name="keyword" placeholder="Search here..." required="required" />
+          <button class="btn btn-primary m-2" name="search">Search</button>
+         
       </form>
-    </div>
+      </div>
+   
 
-    <div class="container-lg bg-secondary text-white border rounded">
-      <div class="container-md">
+    <div class="container p-3 mt-3 border border-primary rounded">
+    <h2>Upload files</h2>
       <form action="upload.php" method="POST" enctype="multipart/form-data">
         <input  type="file" name="file">
-        <button type="submit" name="filesubmit">Upload</button>
+        <button class="btn btn-primary center m-8" type="submit" name="filesubmit">Upload</button>
       </form>
-    </div>
+  
     </div>
     </div>
 
 
-    </div>
     <div>
-    <div class="container-sm">
+    <div class="container-sm p-3">
       <table class="table">
         <th>ID</th>
         <th>Name</th>
