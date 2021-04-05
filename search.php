@@ -5,20 +5,28 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
   <title>Search</title>
 </head>
 
 <body>
-  <form action="index.php">
+
+<div class="container-sm">
+<form action="index.php">
     <button name="Back" action="index.php">Back</button>
   </form>
+
+</div>
+
+
   <?php
   require 'conn.php';
 
   if (isset($_POST['search'])) {
   ?>
-    <h3>Results</h3>
-    <table style="border: 1px solid black;">
+
+    <div class="container-sm">
+    <table class="table">
       <th>ID</th>
       <th>Name</th>
       <th>Category</th>
@@ -27,40 +35,52 @@
       $keyword = $_POST['keyword'];
       $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
       $query->execute();
-      while ($row = $query->fetch()) {
+
+      $result = $query->fetchAll();
+
+
+if (count($result) > 0) {
+    foreach ($result as $row) {
+    
       ?>
-        <tr>
-          <td><?php echo $row['id'] ?></td>
-          <td><?php echo $row['name'] ?></td>
-          <td><?php echo $row['category'] ?></td>
-          <td><?php echo $row['birthday'] ?></td><br>
-        </tr>
-      <?php
-      }
-      ?>
-    </table>
-  <?php
+      <tr>
+      <td><?php echo $row['id'] ?></td>
+      <td><?php echo $row['name'] ?></td>
+      <td><?php echo $row['category'] ?></td>
+      <td><?php echo $row['birthday'] ?></td><br>
+    </tr>
+    <?php
+    }
+    ?>
+
+<?php
   } else {
   ?>
-    <table>
-      <tr>
-        <th>Name</th>
-      </tr>
       <?php
+
+      echo "No results found :(";
       $query = $conn->prepare("SELECT * FROM `animals`");
       $query->execute();
       while ($row = $query->fetch()) {
       ?>
-        <tr>
-          <td><?php echo $row['name'] ?></td>
-        </tr>
+
+      <tr>
+      <td><?php echo $row['id'] ?></td>
+      <td><?php echo $row['name'] ?></td>
+      <td><?php echo $row['category'] ?></td>
+      <td><?php echo $row['birthday'] ?></td><br>
+    </tr>
       <?php
       }
       ?>
     </table>
+    </div>
   <?php
   }
+}
   ?>
+
+   
 </body>
 
 </html>
