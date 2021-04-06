@@ -10,6 +10,11 @@
 </head>
 
 <body>
+  <div class="container p-3 border border-primary rounded" style="margin-top: 2rem">
+    <form action="index.php">
+      <button class="btn btn-primary center m-8" name="Back" action="index.php">Back</button>
+    </form>
+  </div>
   <?php
   require 'conn.php';
 
@@ -63,16 +68,13 @@
           }
           ?>
       </table>
+
     </div>
 <?php
         }
       }
 ?>
-<div class="container-sm">
-  <form action="index.php">
-    <button class="btn btn-primary center m-8" name="Back" action="index.php">Back</button>
-  </form>
-</div>
+
 
 </body>
 
