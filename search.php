@@ -10,77 +10,70 @@
 </head>
 
 <body>
-
-<div class="container-sm">
-<form action="index.php">
-    <button name="Back" action="index.php">Back</button>
-  </form>
-
-</div>
-
-
   <?php
   require 'conn.php';
 
   if (isset($_POST['search'])) {
   ?>
-
     <div class="container-sm">
-    <table class="table">
-      <th>ID</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Birthday</th>
-      <?php
-      $keyword = $_POST['keyword'];
-      $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
-      $query->execute();
+      <table class="table">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Birthday</th>
+        <?php
+        $keyword = $_POST['keyword'];
+        $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
+        $query->execute();
 
-      $result = $query->fetchAll();
+        $result = $query->fetchAll();
 
 
-if (count($result) > 0) {
-    foreach ($result as $row) {
-    
-      ?>
-      <tr>
-      <td><?php echo $row['id'] ?></td>
-      <td><?php echo $row['name'] ?></td>
-      <td><?php echo $row['category'] ?></td>
-      <td><?php echo $row['birthday'] ?></td><br>
-    </tr>
-    <?php
-    }
-    ?>
+        if (count($result) > 0) {
+          foreach ($result as $row) {
+        ?>
+            <tr>
+              <td><?php echo $row['id'] ?></td>
+              <td><?php echo $row['name'] ?></td>
+              <td><?php echo $row['category'] ?></td>
+              <td><?php echo $row['birthday'] ?></td>
+            </tr>
+          <?php
+          }
+          ?>
 
-<?php
-  } else {
-  ?>
-      <?php
+        <?php
+        } else {
+        ?>
+          <?php
 
-      echo "No results found :(";
-      $query = $conn->prepare("SELECT * FROM `animals`");
-      $query->execute();
-      while ($row = $query->fetch()) {
-      ?>
+          echo "<h2>No results found :(</h2>";
+          $query = $conn->prepare("SELECT * FROM `animals`");
+          $query->execute();
+          while ($row = $query->fetch()) {
+          ?>
 
-      <tr>
-      <td><?php echo $row['id'] ?></td>
-      <td><?php echo $row['name'] ?></td>
-      <td><?php echo $row['category'] ?></td>
-      <td><?php echo $row['birthday'] ?></td><br>
-    </tr>
-      <?php
-      }
-      ?>
-    </table>
+            <tr>
+              <td><?php echo $row['id'] ?></td>
+              <td><?php echo $row['name'] ?></td>
+              <td><?php echo $row['category'] ?></td>
+              <td><?php echo $row['birthday'] ?></td>
+            </tr>
+          <?php
+          }
+          ?>
+      </table>
     </div>
-  <?php
-  }
-}
-  ?>
+<?php
+        }
+      }
+?>
+<div class="container-sm">
+  <form action="index.php">
+    <button class="btn btn-primary center m-8" name="Back" action="index.php">Back</button>
+  </form>
+</div>
 
-   
 </body>
 
 </html>
