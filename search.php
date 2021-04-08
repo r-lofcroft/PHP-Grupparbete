@@ -27,10 +27,16 @@
         <th>Category</th>
         <th>Birthday</th>
         <?php
-        $keyword = $_POST['keyword'];
-        $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
-        $query->execute();
 
+        $keyword = $_POST['keyword'];
+        $selection = $_POST['selection'];
+        if ($keyword !== "") {
+          $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
+          $query->execute();
+        } else {
+          $query = $conn->prepare("SELECT * FROM `animals` WHERE (`category` LIKE '%$selection%')");
+          $query->execute();
+        }
         $result = $query->fetchAll();
 
 
