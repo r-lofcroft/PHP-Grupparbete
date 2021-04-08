@@ -30,7 +30,10 @@
 
         $keyword = $_POST['keyword'];
         $selection = $_POST['selection'];
-        if ($keyword !== "") {
+        if ($keyword !== "" && $selection !== "--Select a Category--") {
+          $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') AND (`category` LIKE '%$selection%') OR (`category` LIKE '%$keyword%') AND (`category` LIKE '%$selection%') OR (`birthday` LIKE '%$keyword%') AND (`category` LIKE '%$selection%')");
+          $query->execute();
+        } else if ($keyword !== "") {
           $query = $conn->prepare("SELECT * FROM `animals` WHERE (`name` LIKE '%$keyword%') OR (`category` LIKE '%$keyword%') OR (`birthday` LIKE '%$keyword%')");
           $query->execute();
         } else {
